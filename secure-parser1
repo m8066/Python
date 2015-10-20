@@ -1,0 +1,16 @@
+import re
+
+file=open('secure', "r")
+ips = []
+event={}
+for text in file.readlines():
+	text = text.rstrip()
+	found = re.findall(r'(?:[\d]{1,3})\.(?:[\d]{1,3})\.(?:[\d]{1,3})\.(?:[\d]{1,3})',text)	#extract IP
+	if found:
+		ldate = text[:15]	#extract date
+		lip=''.join(found)	#convert list to string
+		event[lip]=ldate	#dictionary with unique IPs 
+		#event[ldate]=ips	#dictionary with date as keys and IP as list
+		ips.extend(found)	#add the found ip to the list of ips
+print list(set(ips))	#remove duplicate IPs from the list
+print event
